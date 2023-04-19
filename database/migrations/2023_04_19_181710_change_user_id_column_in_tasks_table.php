@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('tasks', function (Blueprint $table) {
-            //
+             $table->unsignedBigInteger('user_id')->default(Auth::id())->change();
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('tasks', function (Blueprint $table) {
-            //
+            $table->unsignedBigInteger('user_id')->nullable(false)->change();
         });
     }
 };

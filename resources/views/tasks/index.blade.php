@@ -8,7 +8,7 @@
         <h2>タスク 一覧</h2>
     </div>
 
-    @if (isset($tasks))
+   @if(isset($tasks))
         <table class="table table-zebra w-full my-4">
             <thead>
                 <tr>
@@ -18,13 +18,15 @@
                 </tr>
             </thead>
             <tbody>
+            
                 @foreach ($tasks as $task)
                 <tr>
                     <td><a class="link link-hover text-info" href="{{ route('tasks.show', $task->id) }}">{{ $task->id }}</a></td>
-                    <td>{{ $task->status }}</td>
-                    <td>{{ $task->content }}</td>
+                    <td>{!! nl2br(e( $task->status )) !!}</td>
+                    <td>{!! nl2br(e( $task->content )) !!}</td>
                 </tr>
                 @endforeach
+           
             </tbody>
         </table>
     @endif
