@@ -58,11 +58,13 @@ class TasksController extends Controller
             'content' => 'required|max:255',
         ]);
         
-        $task = new Task;
-        $task->status = $request->status;
-        $task->content = $request->content;
-        $task->user_id = Auth::id();
-        $task->save();
+        
+        $request->user()->tasks()->create([
+            'content' => $request->content,
+             'status' => $request->status,
+        ]);
+        
+        
 
         // トップページへリダイレクトさせる
         return redirect('/');
@@ -93,11 +95,12 @@ class TasksController extends Controller
     public function edit($id)
     {
         $task = Task::findOrFail($id);
-
-        // メッセージ編集ビューでそれを表示
-        return view('tasks.edit', [
-            'task' => $task,
-        ]);
+        if (\Auth::id() === $task->user_id) {
+            // メッセージ編集ビューでそれを表示
+            return view('tasks.edit', [
+                'task' => $task,
+            ]);
+        }
     }
 
     /**
@@ -118,10 +121,12 @@ class TasksController extends Controller
         
             $task = Task::findOrFail($id);
             // メッセージを更新
+        if (\Auth::id() === $task->user_id) {
             $task->status = $request->status;
             $task->content = $request->content;
             $task->save();
-        
+            return redirect('/');
+        }
 
         // トップページへリダイレクトさせる
         return redirect('/');
@@ -138,7 +143,11 @@ class TasksController extends Controller
         
             $task = Task::findOrFail($id);
             // メッセージを削除
-            $task->delete();
+            if (\Auth::id() === $task->user_id) {
+                $task->delete();
+                return redirect('/')
+                    ->with('success','Delete Successful');
+            }
         
 
         // トップページへリダイレクトさせる
