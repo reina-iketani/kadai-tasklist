@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Task;
+use Illuminate\Support\Facades\Auth;
 
 class TasksController extends Controller
 {
@@ -23,6 +24,7 @@ class TasksController extends Controller
             $data = [
                 'user' => $user,
                 'tasks' => $tasks,
+                
             ];
         } 
         return view('dashboard', $data);
@@ -59,6 +61,7 @@ class TasksController extends Controller
         $task = new Task;
         $task->status = $request->status;
         $task->content = $request->content;
+        $task->user_id = Auth::id();
         $task->save();
 
         // トップページへリダイレクトさせる
@@ -111,14 +114,14 @@ class TasksController extends Controller
             'content' => 'required|max:255',
         ]);
         
-        if (\Auth::id() === $task->user_id) {
+        
         
             $task = Task::findOrFail($id);
             // メッセージを更新
             $task->status = $request->status;
             $task->content = $request->content;
             $task->save();
-        }
+        
 
         // トップページへリダイレクトさせる
         return redirect('/');
@@ -132,11 +135,11 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
-        if (\Auth::id() === $task->user_id) {
+        
             $task = Task::findOrFail($id);
             // メッセージを削除
             $task->delete();
-        }
+        
 
         // トップページへリダイレクトさせる
         return redirect('/');

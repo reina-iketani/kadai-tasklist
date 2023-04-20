@@ -1,7 +1,5 @@
 @if (Auth::check())
-    {{--のちに、権限によって自分以外のタスクを見れるようにするときに使う--}}
-    {{-- ユーザ一覧ページへのリンク --}}
-    <li><a class="link link-hover" href="#">Users</a></li>
+    <li><a class="link link-hover" href="{{ route('tasks.create') }}">新規タスクの投稿</a></li>
     {{-- ユーザ詳細ページへのリンク --}}
     <li><a class="link link-hover" href="#">{{ Auth::user()->name }}&#39;s profile</a></li>
     <li class="divider lg:hidden"></li>
