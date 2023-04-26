@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for aged-bird-9423 on 2023-04-25T03:04:06Z
+# fly.toml app configuration file generated for morning-dust-9209 on 2023-04-26T00:29:41Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "aged-bird-9423"
+app = "morning-dust-9209"
 primary_region = "nrt"
 
 [build]
@@ -16,15 +16,14 @@ primary_region = "nrt"
   LOG_CHANNEL = "stderr"
   LOG_LEVEL = "info"
   LOG_STDERR_FORMATTER = "Monolog\\Formatter\\JsonFormatter"
-  APP_URL = " https://aged-bird-9423.fly.dev"
-  APP_NAME ="tasklist"
+  APP_URL = "https://morning-dust-9209.fly.dev"
+  APP_NAME = "tasklist"
   APP_DEBUG = false
   DB_CONNECTION = "pgsql"
   DB_HOST = "db.kaapqbvzfnbuxtixfwtw.supabase.co"
   DB_PORT = 5432
   DB_DATABASE = "postgres"
   DB_USERNAME = "postgres"
-  
 
 [http_service]
   internal_port = 8080

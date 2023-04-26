@@ -79,6 +79,10 @@ class TasksController extends Controller
     public function show($id)
     {
         $task = Task::findOrFail($id);
+        
+        if ($task->user_id !== Auth::id()) {
+            return redirect('/');
+        }
 
         // メッセージ詳細ビューでそれを表示
         return view('tasks.show', [

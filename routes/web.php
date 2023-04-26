@@ -15,11 +15,12 @@ use App\Http\Controllers\TasksController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', [TasksController::class, 'index']);
-Route::get('/dashboard', [TasksController::class, 'index'])->middleware(['auth'])->name('dashboard');
+
 
 
 Route::middleware('auth')->group(function () {
+    Route::get('/', [TasksController::class, 'index']);
+    Route::get('/dashboard', [TasksController::class, 'index'])->middleware(['auth'])->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
